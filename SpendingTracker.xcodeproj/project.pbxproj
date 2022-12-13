@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		483DC91A29491901002062B7 /* AddCardForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483DC91929491901002062B7 /* AddCardForm.swift */; };
 		48B1AAA42947C3B3004B902E /* SpendingTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAA32947C3B3004B902E /* SpendingTrackerApp.swift */; };
 		48B1AAA62947C3B3004B902E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAA52947C3B3004B902E /* ContentView.swift */; };
 		48B1AAA82947C3B7004B902E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48B1AAA72947C3B7004B902E /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		483DC91929491901002062B7 /* AddCardForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardForm.swift; sourceTree = "<group>"; };
 		48B1AAA02947C3B3004B902E /* SpendingTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpendingTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48B1AAA32947C3B3004B902E /* SpendingTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingTrackerApp.swift; sourceTree = "<group>"; };
 		48B1AAA52947C3B3004B902E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		483DC918294918F0002062B7 /* AddCard */ = {
+			isa = PBXGroup;
+			children = (
+				483DC91929491901002062B7 /* AddCardForm.swift */,
+			);
+			path = AddCard;
+			sourceTree = "<group>";
+		};
 		48B1AA972947C3B3004B902E = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +110,7 @@
 		48B1AAA22947C3B3004B902E /* SpendingTracker */ = {
 			isa = PBXGroup;
 			children = (
+				483DC918294918F0002062B7 /* AddCard */,
 				48B1AAD22947C55C004B902E /* Main */,
 				48B1AAA32947C3B3004B902E /* SpendingTrackerApp.swift */,
 				48B1AAA52947C3B3004B902E /* ContentView.swift */,
@@ -275,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48B1AAB02947C3B7004B902E /* SpendingTracker.xcdatamodeld in Sources */,
+				483DC91A29491901002062B7 /* AddCardForm.swift in Sources */,
 				48B1AAAD2947C3B7004B902E /* Persistence.swift in Sources */,
 				48B1AAA62947C3B3004B902E /* ContentView.swift in Sources */,
 				48B1AAD42947C56A004B902E /* MainView.swift in Sources */,
