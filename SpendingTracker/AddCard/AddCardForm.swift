@@ -62,17 +62,59 @@ struct AddCardForm: View {
                 
             }
                 .navigationTitle("Add Credit Card")
-                .navigationBarItems(leading: Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Cancel")
-                }))
+                .navigationBarItems(leading: cancelButton,trailing: saveButton)
         }
     }
+    
+    private var cancelButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss()
+        }, label: {
+            Text("Cancel")
+        })
+    }
+    
+    private var saveButton: some View {
+        Button(action: {
+            let viewContext = PersistenceController.shared.container.viewContext
+            let card = Card(context: viewContext)
+            card.name = self.name
+            card.number = self.cardNumber
+            card.limit = Int32(self.limit) ?? 0
+            card.expMonth = Int16(self.month)
+            card.expYear = Int16(self.year)
+            card.timestamp = Date()
+            card.color = UIColor(self.color).encode()
+            do {
+                try viewContext.save()
+                presentationMode.wrappedValue.dismiss()
+            } catch {
+                print("failed to persist new card \(error)")
+            }
+            
+        }, label: {
+            Text("Save")
+        })
+    }
+    
+    
+}
+
+extension UIColor {
+
+     class func color(data: Data) -> UIColor? {
+          return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UIColor
+     }
+
+     func encode() -> Data? {
+          return try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
+     }
 }
 
 struct AddCardForm_Previews: PreviewProvider {
     static var previews: some View {
-        AddCardForm()
+       // AddCardForm()
+        let viewContext = PersistenceController.shared.container.viewContext
+        MainView().environment(\.managedObjectContext, viewContext)
     }
 }
