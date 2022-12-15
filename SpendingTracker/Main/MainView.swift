@@ -14,7 +14,7 @@ struct MainView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Card.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Card.timestamp, ascending: false)],
         animation: .default)
     private var cards: FetchedResults<Card>
     
@@ -117,6 +117,8 @@ struct MainView: View {
 struct CreditCardView: View {
     let card: Card
     @State private var shouldShowActionSheet = false
+    @State var shouldShowEditForm = false
+    @State var refreshId = UUID()
     
     private func handleDelete() {
         let viewContext = PersistenceController.shared.container.viewContext
@@ -141,7 +143,7 @@ struct CreditCardView: View {
                         .font(.system(size: 28,weight: .bold))
                 }
                 .actionSheet(isPresented: $shouldShowActionSheet) {
-                    .init(title: Text(self.card.name ?? ""), message: Text("options"), buttons: [.destructive(Text("Delete Card"), action: handleDelete),.cancel()])
+                    .init(title: Text(self.card.name ?? ""), message: Text("options"), buttons: [.destructive(Text("Delete Card"), action: handleDelete),.default(Text("Edit"),action: { shouldShowEditForm.toggle() }),.cancel()])
                 }
 
             }
@@ -176,6 +178,9 @@ struct CreditCardView: View {
         .shadow(radius: 5)
         .padding(.horizontal)
         .padding(.top,8)
+        .fullScreenCover(isPresented: $shouldShowEditForm) {
+            AddCardForm(card: card)
+        }
     }
 }
 
