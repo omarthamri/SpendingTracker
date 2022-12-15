@@ -18,6 +18,7 @@
 		48B1AAC42947C3B8004B902E /* SpendingTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAC32947C3B8004B902E /* SpendingTrackerUITests.swift */; };
 		48B1AAC62947C3B8004B902E /* SpendingTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAC52947C3B8004B902E /* SpendingTrackerUITestsLaunchTests.swift */; };
 		48B1AAD42947C56A004B902E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAD32947C56A004B902E /* MainView.swift */; };
+		48E800B8294BB01300C8E67F /* AddTransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E800B7294BB01300C8E67F /* AddTransactionForm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		48B1AAC32947C3B8004B902E /* SpendingTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingTrackerUITests.swift; sourceTree = "<group>"; };
 		48B1AAC52947C3B8004B902E /* SpendingTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		48B1AAD32947C56A004B902E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		48E800B7294BB01300C8E67F /* AddTransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionForm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		48B1AAA22947C3B3004B902E /* SpendingTracker */ = {
 			isa = PBXGroup;
 			children = (
+				48E800B6294BAFFF00C8E67F /* Transaction */,
 				483DC918294918F0002062B7 /* AddCard */,
 				48B1AAD22947C55C004B902E /* Main */,
 				48B1AAA32947C3B3004B902E /* SpendingTrackerApp.swift */,
@@ -153,6 +156,14 @@
 				48B1AAD32947C56A004B902E /* MainView.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		48E800B6294BAFFF00C8E67F /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				48E800B7294BB01300C8E67F /* AddTransactionForm.swift */,
+			);
+			path = Transaction;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +299,7 @@
 				48B1AAB02947C3B7004B902E /* SpendingTracker.xcdatamodeld in Sources */,
 				483DC91A29491901002062B7 /* AddCardForm.swift in Sources */,
 				48B1AAAD2947C3B7004B902E /* Persistence.swift in Sources */,
+				48E800B8294BB01300C8E67F /* AddTransactionForm.swift in Sources */,
 				48B1AAA62947C3B3004B902E /* ContentView.swift in Sources */,
 				48B1AAD42947C56A004B902E /* MainView.swift in Sources */,
 				48B1AAA42947C3B3004B902E /* SpendingTrackerApp.swift in Sources */,
