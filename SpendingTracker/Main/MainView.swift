@@ -18,22 +18,25 @@ struct MainView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Card.timestamp, ascending: false)],
         animation: .default)
     private var cards: FetchedResults<Card>
-
+   @State private var cardSelectionIndex = 0
     
     
     var body: some View {
         NavigationView {
             ScrollView {
                 if !cards.isEmpty {
-                    TabView {
-                        ForEach(cards, id: \.self) { card in
-                            CreditCardView(card: card)
+                    TabView(selection: $cardSelectionIndex) {
+                        ForEach(0..<cards.count, id: \.self) { i in
+                            CreditCardView(card: cards[i])
                                 .padding(.bottom,50)
+                                .tag(i)
                         }
                     }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                         .frame(height: 280)
                         .indexViewStyle(.page(backgroundDisplayMode: .always))
-                    TransactionListView()
+                    if let selectedCard = cards[cardSelectionIndex] {
+                        TransactionListView(card: selectedCard)
+                    }
 
                 } else {
                     EmptyPromptMessage
