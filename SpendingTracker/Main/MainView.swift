@@ -10,7 +10,7 @@ import CoreData
 
 struct MainView: View {
     @State private var shouldPresentAddCardForm = false
-    @State private var shouldShowAddTransactionForm = false
+   
     
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -18,11 +18,7 @@ struct MainView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Card.timestamp, ascending: false)],
         animation: .default)
     private var cards: FetchedResults<Card>
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \CardTransaction.timestamp, ascending: false)],
-        animation: .default)
-    private var transactions: FetchedResults<CardTransaction>
+
     
     
     var body: some View {
@@ -37,58 +33,7 @@ struct MainView: View {
                     }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                         .frame(height: 280)
                         .indexViewStyle(.page(backgroundDisplayMode: .always))
-                    Text("Get started by adding your first transaction!")
-                    Button {
-                        shouldShowAddTransactionForm.toggle()
-                    } label: {
-                        Text("+ Transaction")
-                            .padding(EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14))
-                            .background(Color(.label))
-                            .foregroundColor(Color(.systemBackground))
-                            .font(.headline)
-                    }.fullScreenCover(isPresented: $shouldShowAddTransactionForm) {
-                        AddTransactionForm()
-                    }
-                    ForEach(transactions) { transaction in
-                        VStack {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                Text(transaction.name ?? "")
-                                        .font(.headline)
-                                    if let date = transaction.timestamp {
-                                        Text(dateFormatter.string(from: date))
-                                    }
-                                    
-                                }
-                                Spacer()
-                                VStack(alignment: .trailing) {
-                                    Button {
-                                        
-                                    } label: {
-                                        Image(systemName: "ellipsis")
-                                            .font(.system(size: 24))
-                                    }
-                                    .padding(EdgeInsets(top: 6, leading: 8, bottom: 4, trailing: 0))
-                                    Text(String(format: "$%.2f", transaction.amount))
-                                    
-                                }
-                                
-                                
-                            }
-                        
-                            if let photoData = transaction.photoData,let uiImage = UIImage(data: photoData) {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFill()
-                            }
-                        }
-                        .foregroundColor(Color(.label))
-                            .padding()
-                            .background(.white)
-                            .cornerRadius(5)
-                            .shadow(radius: 5)
-                            .padding()
-                    }
+                    TransactionListView()
 
                 } else {
                     EmptyPromptMessage
@@ -105,13 +50,6 @@ struct MainView: View {
                 },trailing: addCardButton)
         }
     }
-    
-    private let dateFormatter: DateFormatter = {
-       let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-        return formatter
-    }()
     
     private var EmptyPromptMessage: some View {
         VStack {
