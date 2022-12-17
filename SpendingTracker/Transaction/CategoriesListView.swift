@@ -17,18 +17,33 @@ struct CategoriesListView: View {
     private var categories: FetchedResults<TransactionCategory>
     @State private var name = ""
     @State private var color = Color.red
+    @Binding var selectedCategories: Set<TransactionCategory>
     var body: some View {
         Form {
             Section(header: Text("Select a category")) {
                 ForEach(categories) { category in
-                    HStack(spacing: 12) {
-                        if let data = category.colorData,let uicolor = UIColor.color(data: data) {
-                            let color = Color(uicolor)
-                            Spacer()
-                                .frame(width: 30, height: 10)
-                                .background(color)
+                    Button {
+                        if selectedCategories.contains(category) {
+                            selectedCategories.remove(category)
+                        } else {
+                            selectedCategories.insert(category)
                         }
-                        Text(category.name ?? "")
+                        
+                    } label: {
+                        HStack(spacing: 12) {
+                            if let data = category.colorData,let uicolor = UIColor.color(data: data) {
+                                let color = Color(uicolor)
+                                Spacer()
+                                    .frame(width: 30, height: 10)
+                                    .background(color)
+                            }
+                            Text(category.name ?? "")
+                                .foregroundColor(Color(.label))
+                            Spacer()
+                            if selectedCategories.contains(category) {
+                            Image(systemName: "checkmark")
+                            }
+                        }
                     }
                     
                 }
@@ -78,7 +93,7 @@ private func handleCreate() {
 
 struct CategoriesListView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoriesListView()
+        CategoriesListView(selectedCategories: .constant(Set<TransactionCategory>()))
             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }
