@@ -25,25 +25,73 @@ struct TransactionListView: View {
         animation: .default)
     private var transactions: FetchedResults<CardTransaction>*/
     @State private var shouldShowAddTransactionForm = false
+    @State private var shouldShowFilterSheet = false
     
     var body: some View {
         VStack {
-            Text("Get started by adding your first transaction!")
-            Button {
-                shouldShowAddTransactionForm.toggle()
-            } label: {
-                Text("+ Transaction")
-                    .padding(EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14))
-                    .background(Color(.label))
-                    .foregroundColor(Color(.systemBackground))
-                    .font(.headline)
-            }.fullScreenCover(isPresented: $shouldShowAddTransactionForm) {
-                AddTransactionForm(card: self.card)
+            if fetchRequest.wrappedValue.isEmpty {
+                Text("Get started by adding your first transaction!")
+                Button {
+                    shouldShowAddTransactionForm.toggle()
+                } label: {
+                    Text("+ Transaction")
+                        .padding(EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14))
+                        .background(Color(.label))
+                        .foregroundColor(Color(.systemBackground))
+                        .font(.headline)
+                }
+            } else {
+                HStack {
+                    Spacer()
+                    addTransactionButton
+                    filterButton
+                        .sheet(isPresented: $shouldShowFilterSheet) {
+                            FilerSheet{ categories in
+                                
+                            }
+                        }
+                }
+                .padding(.horizontal)
+                ForEach(fetchRequest.wrappedValue) { transaction in
+                    CardTransactionView(transaction: transaction)
+                }
             }
-            ForEach(fetchRequest.wrappedValue) { transaction in
-                CardTransactionView(transaction: transaction)
-            } 
+        }.fullScreenCover(isPresented: $shouldShowAddTransactionForm) {
+            AddTransactionForm(card: self.card)
         }
+    }
+    
+    private var filterButton: some View {
+        Button {
+            shouldShowFilterSheet.toggle()
+        } label: {
+            HStack {
+                Image(systemName: "line.horizontal.3.decrease.circle")
+                Text("Filter")
+            }
+                .foregroundColor(Color(.systemBackground))
+                .padding(.vertical,6)
+                .padding(.horizontal,8)
+                .background(Color(.label))
+                .font(.system(size: 16,weight: .semibold))
+                .cornerRadius(5)
+        }
+
+    }
+    
+    private var addTransactionButton: some View {
+        Button {
+            shouldShowAddTransactionForm.toggle()
+        } label: {
+            Text("+ Transaction")
+                .foregroundColor(Color(.systemBackground))
+                .padding(.vertical,6)
+                .padding(.horizontal,8)
+                .background(Color(.label))
+                .font(.system(size: 16,weight: .semibold))
+                .cornerRadius(5)
+        }
+
     }
     
 }
@@ -115,6 +163,67 @@ struct CardTransactionView: View {
         .padding()
     }
 }
+
+
+struct FilerSheet: View {
+    let didSaveFilters: (Set<TransactionCategory>) -> ()
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \TransactionCategory.timestamp, ascending: false)],
+        animation: .default)
+    private var categories: FetchedResults<TransactionCategory>
+    @State var selectedCategories = Set<TransactionCategory>()
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                ForEach(categories) { category in
+                    Button {
+                        if selectedCategories.contains(category) {
+                            selectedCategories.remove(category)
+                        } else {
+                            selectedCategories.insert(category)
+                        }
+                        
+                    } label: {
+                        HStack(spacing: 12) {
+                            if let data = category.colorData,let uicolor = UIColor.color(data: data) {
+                                let color = Color(uicolor)
+                                Spacer()
+                                    .frame(width: 30, height: 10)
+                                    .background(color)
+                            }
+                            Text(category.name ?? "")
+                                .foregroundColor(Color(.label))
+                            Spacer()
+                            if selectedCategories.contains(category) {
+                            Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                    
+                }
+            }.navigationTitle("Select filters")
+                .navigationBarItems(trailing: saveButton)
+        }
+    }
+    @Environment(\.presentationMode) var presentationMode
+    
+    var saveButton: some View {
+        Button {
+            didSaveFilters(selectedCategories)
+            presentationMode.wrappedValue.dismiss()
+        } label: {
+            Text("Save")
+        }
+
+    }
+    
+    
+}
+
+
 
 struct TransactionListView_Previews: PreviewProvider {
     
