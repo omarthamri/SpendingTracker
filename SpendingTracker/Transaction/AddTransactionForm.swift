@@ -9,6 +9,21 @@ import SwiftUI
 
 struct AddTransactionForm: View {
     let card: Card
+    
+    init(card: Card) {
+        self.card = card
+        let context = PersistenceController.shared.container.viewContext
+        let request = TransactionCategory.fetchRequest()
+        request.sortDescriptors = [.init(key: "timestamp", ascending: false)]
+        do {
+            let result = try context.fetch(request)
+            if let first = result.first {
+                self._selectedCategories = .init(initialValue: [first])
+            }
+        } catch {
+            print("failed to preselect categories",error)
+        }
+    }
     @Environment(\.presentationMode) var presentationMode
     @State private var name = ""
     @State private var amount = ""
@@ -30,6 +45,7 @@ struct AddTransactionForm: View {
                     } label: {
                         Text("select categories")
                     }
+                    let sortedByTimestampCategories = Array(selectedCategories).sorted(by: {$0.timestamp?.compare($1.timestamp ?? Date()) == .orderedDescending})
                      
                     ForEach(sortedByTimestampCategories) { category in
                         HStack(spacing: 12) {
