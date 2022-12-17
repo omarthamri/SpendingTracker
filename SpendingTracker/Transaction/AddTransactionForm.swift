@@ -30,7 +30,7 @@ struct AddTransactionForm: View {
                     } label: {
                         Text("select categories")
                     }
-                    let sortedByTimestampCategories = Array(selectedCategories).sorted(by: {$0.timestamp?.compare($1.timestamp ?? Date()) == .orderedDescending})
+                     
                     ForEach(sortedByTimestampCategories) { category in
                         HStack(spacing: 12) {
                             if let data = category.colorData,let uicolor = UIColor.color(data: data) {
@@ -74,6 +74,7 @@ struct AddTransactionForm: View {
             transaction.photoData = self.photoData
             transaction.timestamp = self.date
             transaction.card = self.card
+            transaction.categories = self.selectedCategories as NSSet
             do {
                 try context.save()
                 presentationMode.wrappedValue.dismiss()
