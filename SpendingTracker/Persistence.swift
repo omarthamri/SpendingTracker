@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import UIKit
 
 struct PersistenceController {
     static let shared = PersistenceController()
@@ -52,5 +53,26 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        SeedInitialData()
     }
+    
+    private func SeedInitialData() {
+        if UserDefaults.standard.bool(forKey: PersistenceController.hasSeededDataKey) {
+            return
+        }
+        let context = container.viewContext
+        let category = TransactionCategory(context: context)
+        category.name = "Office Supplies"
+        category.colorData = UIColor.blue.encode()
+        category.timestamp = Date()
+        do {
+            try context.save()
+            UserDefaults.standard.set(true, forKey: PersistenceController.hasSeededDataKey)
+        } catch {
+            print("failed to seed initial data",error)
+        }
+    }
+    
+    static let hasSeededDataKey = "hasSeededDataKey"
+    
 }
