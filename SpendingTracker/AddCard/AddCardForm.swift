@@ -10,8 +10,10 @@ import SwiftUI
 struct AddCardForm: View {
     
     let card: Card?
-    init(card: Card? = nil) {
+    var didAddCard: ((Card) -> ())? = nil
+    init(card: Card? = nil,didAddCard: ((Card) -> ())? = nil) {
         self.card = card
+        self.didAddCard = didAddCard
         _name = State(initialValue: self.card?.name ?? "")
         _cardNumber = State(initialValue: self.card?.number ?? "")
         if let limit = self.card?.limit {
@@ -85,6 +87,9 @@ struct AddCardForm: View {
     private var cancelButton: some View {
         Button(action: {
             presentationMode.wrappedValue.dismiss()
+            if let myCard = card {
+                didAddCard?(myCard )
+            }
         }, label: {
             Text("Cancel")
         })
