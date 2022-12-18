@@ -12,7 +12,7 @@ struct TransactionListView: View {
     let card: Card
     
     init(card: Card) {
-        self.card = card
+        self.card = card 
         fetchRequest = FetchRequest<CardTransaction>(entity: CardTransaction.entity(), sortDescriptors: [
             .init(key: "timestamp", ascending: false)
         ], predicate: .init(format: "card == %@",self.card))

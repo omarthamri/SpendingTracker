@@ -134,6 +134,15 @@ struct CreditCardView: View {
     @State private var shouldShowActionSheet = false
     @State var shouldShowEditForm = false
     @State var refreshId = UUID()
+    @Environment(\.managedObjectContext) private var viewContext
+    var fetchRequest: FetchRequest<CardTransaction>
+    
+    init(card: Card) {
+        self.card = card
+        fetchRequest = FetchRequest<CardTransaction>(entity: CardTransaction.entity(), sortDescriptors: [
+            .init(key: "timestamp", ascending: false)
+        ], predicate: .init(format: "card == %@",self.card))
+    }
     
     private func handleDelete() {
         let viewContext = PersistenceController.shared.container.viewContext
@@ -168,8 +177,10 @@ struct CreditCardView: View {
                     .scaledToFit()
                     .frame(height: 44)
                 Spacer()
-                Text("Balance: \(card.limit)$")
-                    .font(.system(size: 18,weight: .semibold))
+                if let balance = fetchRequest.wrappedValue.reduce(0, {$0 + $1.amount}) {
+                    Text("Balance: \(String(format: "$%.2f",balance))")
+                        .font(.system(size: 18,weight: .semibold))
+                }
             }
             Text(card.number ?? "")
             Text("Credit Limit: 50,000")
