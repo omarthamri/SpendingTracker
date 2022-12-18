@@ -19,6 +19,7 @@
 		48B1AAC42947C3B8004B902E /* SpendingTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAC32947C3B8004B902E /* SpendingTrackerUITests.swift */; };
 		48B1AAC62947C3B8004B902E /* SpendingTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAC52947C3B8004B902E /* SpendingTrackerUITestsLaunchTests.swift */; };
 		48B1AAD42947C56A004B902E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B1AAD32947C56A004B902E /* MainView.swift */; };
+		48C60593294F9DED00AEDA6D /* DeviceIdiomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C60592294F9DED00AEDA6D /* DeviceIdiomView.swift */; };
 		48C89800294D08AF005076D7 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C897FF294D08AF005076D7 /* TransactionListView.swift */; };
 		48C89802294D51CE005076D7 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C89801294D51CE005076D7 /* CategoriesListView.swift */; };
 		48E800B8294BB01300C8E67F /* AddTransactionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E800B7294BB01300C8E67F /* AddTransactionForm.swift */; };
@@ -57,6 +58,7 @@
 		48B1AAC32947C3B8004B902E /* SpendingTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingTrackerUITests.swift; sourceTree = "<group>"; };
 		48B1AAC52947C3B8004B902E /* SpendingTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		48B1AAD32947C56A004B902E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		48C60592294F9DED00AEDA6D /* DeviceIdiomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdiomView.swift; sourceTree = "<group>"; };
 		48C897FF294D08AF005076D7 /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		48C89801294D51CE005076D7 /* CategoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
 		48E800B7294BB01300C8E67F /* AddTransactionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionForm.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				48B1AAAC2947C3B7004B902E /* Persistence.swift */,
 				48B1AAAE2947C3B7004B902E /* SpendingTracker.xcdatamodeld */,
 				48B1AAA92947C3B7004B902E /* Preview Content */,
+				48C60592294F9DED00AEDA6D /* DeviceIdiomView.swift */,
 			);
 			path = SpendingTracker;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				48E800B8294BB01300C8E67F /* AddTransactionForm.swift in Sources */,
 				48C89802294D51CE005076D7 /* CategoriesListView.swift in Sources */,
 				48B1AAA62947C3B3004B902E /* ContentView.swift in Sources */,
+				48C60593294F9DED00AEDA6D /* DeviceIdiomView.swift in Sources */,
 				48B1AAD42947C56A004B902E /* MainView.swift in Sources */,
 				48B1AAA42947C3B3004B902E /* SpendingTrackerApp.swift in Sources */,
 			);
